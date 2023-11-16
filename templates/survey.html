@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {%block title%} Survey {%endblock%}
+{%block form_action%}{{ url_for('show_questions', question_number=question_number) }}{%endblock%}
 {%block form_method%}post{%endblock%}
 {%block form_content%}
 <h1>{{satisfaction_survey.title}}</h1>

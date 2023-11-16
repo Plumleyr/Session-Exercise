@@ -1,11 +1,11 @@
 {%extends 'base.html'%}
 {%block title%}Question {{question_number}}{%endblock%}
-{%block form_action%}/answer{%endblock%}
+{%block form_action%}/answer?question_number={{question_number}}{%endblock%}
 {%block form_method%}post{%endblock%}
 {%block form_content%}
     <h1>{{satisfaction_survey.questions[question_number].question}}</h1>
     {% for choice in satisfaction_survey.questions[question_number].choices%}
-        <input type="radio" name="choice"> {{choice}}
+        <input type="radio" name="choice" value="{{choice}}"> {{choice}}
     {%endfor%}
     <button>Next!</button>
 {%endblock%}

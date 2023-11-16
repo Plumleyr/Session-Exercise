@@ -23,6 +23,7 @@ def show_survey():
 
 @app.route('/question/<int:question_number>', methods = ['POST', 'GET'])
 def show_questions(question_number):
+    print(responses)
     if request.method == 'POST':
         responses.append(request.form['choice'])
         question_number += 1
@@ -33,4 +34,8 @@ def show_questions(question_number):
 
 @app.route('/answer', methods = ['POST', 'GET'])
 def show_answers():
-    return f"{responses}"
+    responses.append(request.form['choice'])
+    print(responses)
+    question_number = int(request.args.get('question_number')) + 1
+    if question_number < len(satisfaction_survey.questions):
+        return redirect(url_for('show_questions', question_number = question_number))
