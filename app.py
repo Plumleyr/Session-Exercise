@@ -29,6 +29,8 @@ def show_questions(question_number=0):
     if question_number != len(session['responses']):
         flash("Invalid link, redirected to correct question.")
         return redirect(url_for('show_questions', question_number = len(session['responses'])))
+    elif len(session['responses']) == len(surveys_set[session['survey_name']].questions):
+        return redirect('/thank_you')
     else:
         return render_template('questions.html', question_number = question_number, surveys_set = surveys_set)
 
@@ -38,12 +40,16 @@ def show_thanks():
 
 @app.route('/answer', methods = ['POST', 'GET'])
 def show_answers():
-    responses = session['responses']
-    responses.append(request.form['choice'])
-    session['responses'] = responses
-    question_number = int(request.args.get('question_number')) + 1
-    if question_number < len(surveys_set[session['survey_name']].questions):
-        return redirect(url_for('show_questions', question_number = question_number))
+    if len(session['responses']) < len(surveys_set[session['survey_name']].questions) and len(session['responses']) == int(request.args.get('question_number')):
+        responses = session['responses']
+        responses.append(request.form['choice'])
+        session['responses'] = responses
+        question_number = int(request.args.get('question_number')) + 1
+        if question_number < len(surveys_set[session['survey_name']].questions):
+            return redirect(url_for('show_questions', question_number = question_number))
+        else:
+            return redirect('/thank_you')
     else:
-        return redirect('/thank_you')
+        return redirect(url_for('show_questions', question_number = len(session['responses'])))
+
 

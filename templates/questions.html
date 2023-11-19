@@ -9,6 +9,9 @@
     <h1>{{surveys_set[session['survey_name']].questions[question_number].question}}</h1>
     {% for choice in surveys_set[session['survey_name']].questions[question_number].choices%}
         <input type="radio" name="choice" value="{{choice}}"> {{choice}}
+        {% if choice.allow_text%}
+            <input type="text" name="comment_{{choice}}">
+        {% endif %}
     {%endfor%}
     <button>Next!</button>
 {%endblock%}
