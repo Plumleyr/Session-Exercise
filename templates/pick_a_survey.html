@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%block title%}Pick a survey{%endblock%}
+{%block form_action%}/survey?selected_survey={{selected_survey}}{%endblock%}
+{%block form_method%}{%endblock%}
+{%block form_content%}
+    <select name="selected_survey">
+    {% for key, survey in surveys_set.items() %}
+        <option value="{{ key }}">{{ key }}</option>
+    {% endfor %}
+    </select>
+    <button>THIS ONE!</button>
+{%endblock%}

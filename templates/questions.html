@@ -6,8 +6,8 @@
     {% for msg in get_flashed_messages()%}
     <p>{{ msg }}</p>
     {%endfor%}
-    <h1>{{satisfaction_survey.questions[question_number].question}}</h1>
-    {% for choice in satisfaction_survey.questions[question_number].choices%}
+    <h1>{{surveys_set[session['survey_name']].questions[question_number].question}}</h1>
+    {% for choice in surveys_set[session['survey_name']].questions[question_number].choices%}
         <input type="radio" name="choice" value="{{choice}}"> {{choice}}
     {%endfor%}
     <button>Next!</button>
